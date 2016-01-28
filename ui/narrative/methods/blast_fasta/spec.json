@@ -1,0 +1,69 @@
+{
+    "ver": "0.0.2",
+    "authors": [
+        "hsyoo"
+    ],
+    "contact": "help@kbase.us",
+    "visible": true,
+    "categories": ["active"],
+    "widgets": {
+        "input": null,
+        "output": "kbaseReportView"
+    },
+    "parameters": [
+        {
+            "id": "sequence",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [ "" ],
+            "field_type": "textarea",
+            "text_options": {
+                "valid_as": "string"
+            }
+        },
+        {
+            "id": "database",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [ "" ],
+            "field_type": "text",
+            "text_options": {
+                "validate_as": "string"
+            }
+        }
+    ],
+    "behavior": {
+        "service-mapping": {
+            "url": "",
+            "name": "HomologySearch",
+            "method": "blast_fasta",
+            "input_mapping": [
+                {
+                    "narrative_system_variable": "workspace",
+                    "target_property": "workspace"
+                },
+                {
+                    "input_parameter": "sequence",
+                    "target_property": "sequence"
+                },
+                {
+                    "input_parameter": "database",
+                    "target_property": "database"
+                }
+            ],
+            "output_mapping": [
+                {
+                    "narrative_system_variable": "workspace",
+                    "target_property": "workspace"
+                },
+                {
+                    "service_method_output_path": [0, "json_output"],
+                    "target_property": "json_output"
+                }
+            ]
+        }
+    },
+    "job_id_output_field": "docker"
+}

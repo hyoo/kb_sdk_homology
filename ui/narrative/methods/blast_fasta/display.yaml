@@ -1,0 +1,49 @@
+#
+# define display information
+#
+name: Homology Search
+tooltip: |
+    Search by sequence homology
+screenshots: []
+
+icon: icon.png
+
+#
+# define a set of similar methods that might be useful to the user
+#
+suggestions:
+    apps:
+        related:
+            []
+        next:
+            []
+    methods:
+        related:
+            []
+        next:
+            []
+
+#
+# Configure the display and description of parameters
+#
+parameters :
+    sequence :
+        ui-name : |
+            FASTA sequence to search
+        short-hint: |
+            FASTA sequence to search
+    database :
+        ui-name : |
+            Search on pre-defined database
+        short-hint : |
+            Database
+    search_type :
+        ui-name : |
+            Search Type
+        short-hint : |
+            Search on genomic sequence or genmic features
+    output_name :
+        ui-name : Output object name
+        short-hint : Your desired output object name in the workspace
+description : |
+    <p>This is a method designed to search homology sequence.</p>
