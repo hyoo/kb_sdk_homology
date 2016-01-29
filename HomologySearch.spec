@@ -11,11 +11,11 @@ module HomologySearch {
     string workspace;
     string sequence;
     string database;
-    string search_type;
+/*    string search_type;
     list<string> genome_ids;
     string program;
     int max_hits;
-    string evalue_cutoff;
+    string evalue_cutoff;*/
   } HomologySearchInputParams;
 
   /*
