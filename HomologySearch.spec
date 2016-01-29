@@ -4,11 +4,15 @@ A KBase module: HomologySearch
 
 module HomologySearch {
   /*
-    KBase genome object id.
+    KBase homology search.
+
+    workspace_name - name of the workspace for input/output
+    sequence - FASTA sequence to search
+    database - target database
   */
 
   typedef structure {
-    string workspace_name;
+    string workspace;
     string sequence;
     string database;
 /*    string search_type;
@@ -22,6 +26,7 @@ module HomologySearch {
     output format from
     https://github.com/kbase/genome_util/blob/master/KBaseGenomeUtil.spec
   */
+/*
   typedef structure {
     string Parameters_expect;
     string Parameters_filter;
@@ -101,7 +106,7 @@ module HomologySearch {
     BlastOutput_param BlastOutput_param;
     BlastOutput_iterations BlastOutput_iterations;
   } BlastOutput;
-
+*/
   typedef structure {
     string json_output;
   } BlastJSONOutput;
