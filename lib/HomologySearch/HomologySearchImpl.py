@@ -122,6 +122,7 @@ class HomologySearch:
                 ]
             }
         }
+        print output
         #END blast_fasta
 
         # At some point might do deeper type checking...
