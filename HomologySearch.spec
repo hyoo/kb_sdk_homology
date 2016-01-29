@@ -8,7 +8,7 @@ module HomologySearch {
   */
 
   typedef structure {
-    string workspace;
+    string workspace_name;
     string sequence;
     string database;
 /*    string search_type;

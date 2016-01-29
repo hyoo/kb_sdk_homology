@@ -33,7 +33,7 @@ class HomologySearch:
     # be found
     def __init__(self, config):
         #BEGIN_CONSTRUCTOR
-        self.workspaceURL = config['workspace-url']
+        # self.workspaceURL = config['workspace-url']
         #END_CONSTRUCTOR
         pass
 
