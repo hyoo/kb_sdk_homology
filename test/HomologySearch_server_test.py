@@ -61,4 +61,4 @@ class HomologySearchTest(unittest.TestCase):
         }
 
         result = self.getImpl().blast_fasta(self.getContext(), params)
-        pprint(result)
+        self.assertEqual(result[0]['json_output'], "this is a sample output result")
