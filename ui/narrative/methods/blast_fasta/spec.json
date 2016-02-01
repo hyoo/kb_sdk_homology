@@ -19,7 +19,7 @@
             "default_values": [ "" ],
             "field_type": "textarea",
             "text_options": {
-                "valid_as": "string"
+                "validate_as": "string"
             }
         },
         {
