@@ -15,18 +15,18 @@ module HomologySearch {
     string workspace;
     string sequence;
     string database;
-/*    string search_type;
+    string search_type;
     list<string> genome_ids;
     string program;
     int max_hits;
-    string evalue_cutoff;*/
+    string evalue_cutoff;
   } HomologySearchInputParams;
 
   /*
     output format from
     https://github.com/kbase/genome_util/blob/master/KBaseGenomeUtil.spec
   */
-/*
+
   typedef structure {
     string Parameters_expect;
     string Parameters_filter;
@@ -106,16 +106,11 @@ module HomologySearch {
     BlastOutput_param BlastOutput_param;
     BlastOutput_iterations BlastOutput_iterations;
   } BlastOutput;
-*/
-  typedef structure {
-    string json_output;
-  } BlastJSONOutput;
 
   /*
   methods
   */
   funcdef blast_fasta(HomologySearchInputParams params)
-    /* returns (BlastOutput) */
-    returns (BlastJSONOutput output)
+    returns (BlastOutput returnVal)
     authentication required;
 };

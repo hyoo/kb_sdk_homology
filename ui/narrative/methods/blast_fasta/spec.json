@@ -8,7 +8,7 @@
     "categories": ["active"],
     "widgets": {
         "input": null,
-        "output": "kbaseReportView"
+        "output": "kbaseBlastOutput"
     },
     "parameters": [
         {
@@ -18,8 +18,8 @@
             "allow_multiple": false,
             "default_values": [ "" ],
             "field_type": "textarea",
-            "text_options": {
-                "validate_as": "string"
+            "textarea_options": {
+                "n_rows": 4
             }
         },
         {
@@ -59,8 +59,8 @@
                     "target_property": "workspace_name"
                 },
                 {
-                    "service_method_output_path": [0, "json_output"],
-                    "target_property": "json_output"
+                    "input_parameter": "output_name",
+                    "target_property": "blast_output_name"
                 }
             ]
         }

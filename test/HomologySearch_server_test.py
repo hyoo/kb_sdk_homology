@@ -61,4 +61,5 @@ class HomologySearchTest(unittest.TestCase):
         }
 
         result = self.getImpl().blast_fasta(self.getContext(), params)
-        self.assertEqual(result[0]['json_output'], "this is a sample output result")
+        # print result
+        self.assertTrue(len(result[0]['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']) >= 1)
