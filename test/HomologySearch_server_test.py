@@ -55,9 +55,10 @@ class HomologySearchTest(unittest.TestCase):
 
     def test_blast_fasta(self):
         params = {
-            'workspace_name': '',
+            'workspace_name': self.getWsName(),
             'sequence': '>asdf\nasdfasdf',
-            'database': 'nr'
+            'database': 'nr',
+            'output_name': 'blast_output_0'
         }
 
         result = self.getImpl().blast_fasta(self.getContext(), params)

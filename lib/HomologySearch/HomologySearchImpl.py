@@ -36,10 +36,10 @@ class HomologySearch:
         "Hsp_score": "score"}
         returnVal = []
         for item in list:
-            returnVal.append(dict(map(lambda (k,v): (k, item[v]), name_map.iteritems())))
+            returnVal.append(dict(map(lambda (k,v): (k, str(item[v])), name_map.iteritems())))
         return returnVal
     def formatHitList(self, list):
-        name_map = {"Hit_accesion": "", "Hit_def": "", "Hit_id": "", "Hit_len": "len",
+        name_map = {"Hit_accession": "", "Hit_def": "", "Hit_id": "", "Hit_len": "len",
         "Hit_num": "num", "Hit_hsps": ""}
         returnVal = []
         for item in list:
@@ -49,10 +49,12 @@ class HomologySearch:
                     newItem[name] = item['description'][0]['accession']
                 elif name is "Hit_id":
                     newItem[name] = item['description'][0]['id']
+                elif name is "Hit_def":
+                    newItem[name] = item['description'][0]['title']
                 elif name is "Hit_hsps":
                     newItem[name] = {'Hsp': self.formatHspList(item['hsps'])}
                 elif val in item:
-                    newItem[name] = item[val]
+                    newItem[name] = str(item[val])
             returnVal.append(newItem)
         return returnVal
     #END_CLASS_HEADER
@@ -61,7 +63,7 @@ class HomologySearch:
     # be found
     def __init__(self, config):
         #BEGIN_CONSTRUCTOR
-        # self.workspaceURL = config['workspace-url']
+        self.workspaceURL = config['workspace-url']
         #END_CONSTRUCTOR
         pass
 
@@ -129,6 +131,19 @@ class HomologySearch:
             }
         }
         # print returnVal
+        # Step 4 - save in workspace
+        token = ctx['token']
+        ws = workspaceService(self.workspaceURL, token=token)
+        res = ws.save_objects(
+            {
+                "workspace": params["workspace_name"],
+                "objects": [{
+                    "type": "GenomeUtil.BlastOutput",
+                    "data": returnVal,
+                    "name": params["output_name"]
+                }]
+            }
+        )
         #END blast_fasta
 
         # At some point might do deeper type checking...

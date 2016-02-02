@@ -20,6 +20,7 @@ module HomologySearch {
     string program;
     int max_hits;
     string evalue_cutoff;
+    string output_name;
   } HomologySearchInputParams;
 
   /*
