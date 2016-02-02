@@ -37,6 +37,21 @@ parameters :
             Search on pre-defined database
         short-hint : |
             Database
+    program :
+        ui-name : |
+            program
+        short-hint : |
+            program
+    max_hit :
+        ui-name : |
+            max hit
+        short-hint : |
+            Max hit
+    evalue_cutoff :
+        ui-name : |
+            e-value cutoff
+        short-hint : |
+            e-value cutoff
     search_type :
         ui-name : |
             Search Type
