@@ -27,7 +27,40 @@
             "optional": false,
             "advanced": false,
             "allow_multiple": false,
-            "default_values": [ "" ],
+            "default_values": [ "kbase_nr.faa" ],
+            "field_type": "text",
+            "text_options": {
+                "validate_as": "string"
+            }
+        },
+        {
+            "id": "program",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [ "blastp" ],
+            "field_type": "text",
+            "text_options": {
+                "validate_as": "string"
+            }
+        },
+        {
+            "id": "max_hit",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [ 10 ],
+            "field_type": "text",
+            "text_options": {
+                "validate_as": "int"
+            }
+        },
+        {
+            "id": "evalue_cutoff",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [ "1e-5" ],
             "field_type": "text",
             "text_options": {
                 "validate_as": "string"
