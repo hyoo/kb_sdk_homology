@@ -53,12 +53,32 @@ class HomologySearchTest(unittest.TestCase):
     def getContext(self):
         return self.__class__.ctx
 
-    def test_blast_fasta(self):
+    def test_blast_fasta_to_database(self):
         params = {
             'workspace_name': self.getWsName(),
-            'sequence': '>asdf\nasdfasdf',
-            'database': 'nr',
+            'sequence': ">fig|83333.1.peg.4\nMKLYNLKDHNEQVSFAQAVTQGLGKNQGLFFPHDLPEFSLTEIDEMLKLDFVTRSAKILS\nAFIGDEIPQEILEERVRAAFAFPAPVANVESDVGCLELFHGPTLAFKDFGGRFMAQMLTH\nIAGDKPVTILTATSGDTGAAVAHAFYGLPNVKVVILYPRGKISPLQEKLFCTLGGNIETV\nAIDGDFDACQALVKQAFDDEELKVALGLNSANSINISRLLAQICYYFEAVAQLPQETRNQ\nLVVSVPSGNFGDLTAGLLAKSLGLPVKRFIAATNVNDTVPRFLHDGQWSPKATQATLSNA\nMDVSQPNNWPRVEELFRRKIWQLKELGYAAVDDETTQQTMRELKELGYTSEPHAAVAYRA\nLRDQLNPGEYGLFLGTAHPAKFKESVEAILGETLDLPKELAERADLPLLSHNLPADFAAL\nRKLMMNHQ\n",
+            'program': 'blastp',
+            'database': 'kbase_nr.faa',
+            'evalue_cutoff': '1e-5',
+            'max_hit': 10,
             'output_name': 'blast_output_0'
+        }
+
+        result = self.getImpl().blast_fasta(self.getContext(), params)
+        # print result
+        self.assertTrue(len(result[0]['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']) >= 1)
+
+    def test_blast_fasta_to_genomes(self):
+        params = {
+            'workspace_name': self.getWsName(),
+            'sequence': ">fig|83333.1.peg.4\nMKLYNLKDHNEQVSFAQAVTQGLGKNQGLFFPHDLPEFSLTEIDEMLKLDFVTRSAKILS\nAFIGDEIPQEILEERVRAAFAFPAPVANVESDVGCLELFHGPTLAFKDFGGRFMAQMLTH\nIAGDKPVTILTATSGDTGAAVAHAFYGLPNVKVVILYPRGKISPLQEKLFCTLGGNIETV\nAIDGDFDACQALVKQAFDDEELKVALGLNSANSINISRLLAQICYYFEAVAQLPQETRNQ\nLVVSVPSGNFGDLTAGLLAKSLGLPVKRFIAATNVNDTVPRFLHDGQWSPKATQATLSNA\nMDVSQPNNWPRVEELFRRKIWQLKELGYAAVDDETTQQTMRELKELGYTSEPHAAVAYRA\nLRDQLNPGEYGLFLGTAHPAKFKESVEAILGETLDLPKELAERADLPLLSHNLPADFAAL\nRKLMMNHQ\n",
+            'program': 'blastp',
+            'database': '',
+            'genome_ids': ['kb|g.0'],
+            'search_type': 'features',
+            'evalue_cutoff': '1e-5',
+            'max_hit': 10,
+            'output_name': 'blast_output_1'
         }
 
         result = self.getImpl().blast_fasta(self.getContext(), params)

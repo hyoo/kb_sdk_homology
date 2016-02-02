@@ -4,6 +4,8 @@ import sys
 import traceback
 import uuid
 import json
+import requests
+import random
 from pprint import pprint, pformat
 from biokbase.workspace.client import Workspace as workspaceService
 #END_HEADER
@@ -64,31 +66,45 @@ class HomologySearch:
     def __init__(self, config):
         #BEGIN_CONSTRUCTOR
         self.workspaceURL = config['workspace-url']
+        self.homologyServiceURL = config['homologyservice-url']
         #END_CONSTRUCTOR
         pass
 
     def blast_fasta(self, ctx, params):
         # ctx is the context object
-        # return variables are: output
+        # return variables are: returnVal
         #BEGIN blast_fasta
 
         print('Starting blast_fasta')
 
         # Step 1 - parse parameters
-        # if 'sequence' not in params:
-        #     raise ValueError('Parameter sequence is not set in input arguments')
-        # if 'search_type' not in params:
-        #     raise ValueError('Parameter search type is not set in input arguments')
-        # if 'program' not in params:
-        #     raise ValueError('Parameter program is not set in input arguments')
+        if 'sequence' not in params:
+            raise ValueError('Parameter sequence is not set in input arguments')
+        if 'database' not in params:
+            raise ValueError('Parameter database is not set in input arguments')
+        if 'program' not in params:
+            raise ValueError('Parameter program is not set in input arguments')
+        if 'evalue_cutoff' not in params:
+            raise ValueError('Parameter evalu_cutoff is not set in input arguments')
+        if 'max_hit' not in params:
+            raise ValueError('Parameter max_hit is not set in input arguments')
 
         # Step 2 - query
+        if params['database'] is not "":
+            req_method = "HomologyService.blast_fasta_to_database";
+            req_params = [params['sequence'], params['program'], params['database'], params['evalue_cutoff'], params['max_hit'], 70];
+        else:
+            req_method = "HomologyService.blast_fasta_to_genomes";
+            req_params = [params['sequence'], params['program'], params['genome_ids'], params['search_type'], params['evalue_cutoff'], params['max_hit'], 70];
+
+        rpc = {"version": "1.1", "params": req_params, "method": req_method, "id": str(random.random())[2:]}
+        req = requests.post(self.homologyServiceURL, json=rpc)
 
         # Step 3 - wrap results
-        # TODO: don't forget to add extra \ for \"
-        queryReturn = '{"result":[[{"report":{"search_target":{"db":"/vol/patric3/kbase/blastdb/genomes/kb|g.0.faa"},"params":{"gap_open":11,"gap_extend":1,"cbs":2,"expect":1e-05,"filter":"F","matrix":"BLOSUM62"},"results":{"search":{"hits":[{"len":428,"description":[{"accession":"3656","title":"kb|g.0.peg.4288   Threonine synthase (EC 4.2.3.1)   [Escherichia coli K12]","id":"kb|g.0.peg.4288"}],"num":1,"hsps":[{"identity":428,"qseq":"MKLYNLKDHNEQVSFAQAVTQGLGKNQGLFFPHDLPEFSLTEIDEMLKLDFVTRSAKILSAFIGDEIPQEILEERVRAAFAFPAPVANVESDVGCLELFHGPTLAFKDFGGRFMAQMLTHIAGDKPVTILTATSGDTGAAVAHAFYGLPNVKVVILYPRGKISPLQEKLFCTLGGNIETVAIDGDFDACQALVKQAFDDEELKVALGLNSANSINISRLLAQICYYFEAVAQLPQETRNQLVVSVPSGNFGDLTAGLLAKSLGLPVKRFIAATNVNDTVPRFLHDGQWSPKATQATLSNAMDVSQPNNWPRVEELFRRKIWQLKELGYAAVDDETTQQTMRELKELGYTSEPHAAVAYRALRDQLNPGEYGLFLGTAHPAKFKESVEAILGETLDLPKELAERADLPLLSHNLPADFAALRKLMMNHQ","hit_to":428,"hit_from":1,"positive":428,"bit_score":882.093,"score":2278,"midline":"MKLYNLKDHNEQVSFAQAVTQGLGKNQGLFFPHDLPEFSLTEIDEMLKLDFVTRSAKILSAFIGDEIPQEILEERVRAAFAFPAPVANVESDVGCLELFHGPTLAFKDFGGRFMAQMLTHIAGDKPVTILTATSGDTGAAVAHAFYGLPNVKVVILYPRGKISPLQEKLFCTLGGNIETVAIDGDFDACQALVKQAFDDEELKVALGLNSANSINISRLLAQICYYFEAVAQLPQETRNQLVVSVPSGNFGDLTAGLLAKSLGLPVKRFIAATNVNDTVPRFLHDGQWSPKATQATLSNAMDVSQPNNWPRVEELFRRKIWQLKELGYAAVDDETTQQTMRELKELGYTSEPHAAVAYRALRDQLNPGEYGLFLGTAHPAKFKESVEAILGETLDLPKELAERADLPLLSHNLPADFAALRKLMMNHQ","gaps":0,"evalue":0,"query_to":428,"query_from":1,"hseq":"MKLYNLKDHNEQVSFAQAVTQGLGKNQGLFFPHDLPEFSLTEIDEMLKLDFVTRSAKILSAFIGDEIPQEILEERVRAAFAFPAPVANVESDVGCLELFHGPTLAFKDFGGRFMAQMLTHIAGDKPVTILTATSGDTGAAVAHAFYGLPNVKVVILYPRGKISPLQEKLFCTLGGNIETVAIDGDFDACQALVKQAFDDEELKVALGLNSANSINISRLLAQICYYFEAVAQLPQETRNQLVVSVPSGNFGDLTAGLLAKSLGLPVKRFIAATNVNDTVPRFLHDGQWSPKATQATLSNAMDVSQPNNWPRVEELFRRKIWQLKELGYAAVDDETTQQTMRELKELGYTSEPHAAVAYRALRDQLNPGEYGLFLGTAHPAKFKESVEAILGETLDLPKELAERADLPLLSHNLPADFAALRKLMMNHQ","num":1,"align_len":428}]}],"query_title":"fig|83333.1.peg.4","query_len":428,"query_id":"fig|83333.1.peg.4","stat":{"lambda":0.267,"hsp_len":86,"kappa":0.041,"entropy":0.14,"db_num":4309,"eff_space":335033460,"db_len":1350204}}},"version":"BLASTP 2.3.0+","program":"blastp","reference":"Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), \\"Gapped BLAST and PSI-BLAST: a new generation of protein database search programs\\", Nucleic Acids Res. 25:3389-3402."}}],{"kb|g.0.peg.4288":{"genome_name":"Escherichia coli K12","function":"Threonine synthase (EC 4.2.3.1)","genome_id":"kb|g.0"}}],"id":"8527913568541408","version":"1.1"}';
+        jsonQueryReturn = req.json()
+        # queryReturn = '{"result":[[{"report":{"search_target":{"db":"/vol/patric3/kbase/blastdb/genomes/kb|g.0.faa"},"params":{"gap_open":11,"gap_extend":1,"cbs":2,"expect":1e-05,"filter":"F","matrix":"BLOSUM62"},"results":{"search":{"hits":[{"len":428,"description":[{"accession":"3656","title":"kb|g.0.peg.4288   Threonine synthase (EC 4.2.3.1)   [Escherichia coli K12]","id":"kb|g.0.peg.4288"}],"num":1,"hsps":[{"identity":428,"qseq":"MKLYNLKDHNEQVSFAQAVTQGLGKNQGLFFPHDLPEFSLTEIDEMLKLDFVTRSAKILSAFIGDEIPQEILEERVRAAFAFPAPVANVESDVGCLELFHGPTLAFKDFGGRFMAQMLTHIAGDKPVTILTATSGDTGAAVAHAFYGLPNVKVVILYPRGKISPLQEKLFCTLGGNIETVAIDGDFDACQALVKQAFDDEELKVALGLNSANSINISRLLAQICYYFEAVAQLPQETRNQLVVSVPSGNFGDLTAGLLAKSLGLPVKRFIAATNVNDTVPRFLHDGQWSPKATQATLSNAMDVSQPNNWPRVEELFRRKIWQLKELGYAAVDDETTQQTMRELKELGYTSEPHAAVAYRALRDQLNPGEYGLFLGTAHPAKFKESVEAILGETLDLPKELAERADLPLLSHNLPADFAALRKLMMNHQ","hit_to":428,"hit_from":1,"positive":428,"bit_score":882.093,"score":2278,"midline":"MKLYNLKDHNEQVSFAQAVTQGLGKNQGLFFPHDLPEFSLTEIDEMLKLDFVTRSAKILSAFIGDEIPQEILEERVRAAFAFPAPVANVESDVGCLELFHGPTLAFKDFGGRFMAQMLTHIAGDKPVTILTATSGDTGAAVAHAFYGLPNVKVVILYPRGKISPLQEKLFCTLGGNIETVAIDGDFDACQALVKQAFDDEELKVALGLNSANSINISRLLAQICYYFEAVAQLPQETRNQLVVSVPSGNFGDLTAGLLAKSLGLPVKRFIAATNVNDTVPRFLHDGQWSPKATQATLSNAMDVSQPNNWPRVEELFRRKIWQLKELGYAAVDDETTQQTMRELKELGYTSEPHAAVAYRALRDQLNPGEYGLFLGTAHPAKFKESVEAILGETLDLPKELAERADLPLLSHNLPADFAALRKLMMNHQ","gaps":0,"evalue":0,"query_to":428,"query_from":1,"hseq":"MKLYNLKDHNEQVSFAQAVTQGLGKNQGLFFPHDLPEFSLTEIDEMLKLDFVTRSAKILSAFIGDEIPQEILEERVRAAFAFPAPVANVESDVGCLELFHGPTLAFKDFGGRFMAQMLTHIAGDKPVTILTATSGDTGAAVAHAFYGLPNVKVVILYPRGKISPLQEKLFCTLGGNIETVAIDGDFDACQALVKQAFDDEELKVALGLNSANSINISRLLAQICYYFEAVAQLPQETRNQLVVSVPSGNFGDLTAGLLAKSLGLPVKRFIAATNVNDTVPRFLHDGQWSPKATQATLSNAMDVSQPNNWPRVEELFRRKIWQLKELGYAAVDDETTQQTMRELKELGYTSEPHAAVAYRALRDQLNPGEYGLFLGTAHPAKFKESVEAILGETLDLPKELAERADLPLLSHNLPADFAALRKLMMNHQ","num":1,"align_len":428}]}],"query_title":"fig|83333.1.peg.4","query_len":428,"query_id":"fig|83333.1.peg.4","stat":{"lambda":0.267,"hsp_len":86,"kappa":0.041,"entropy":0.14,"db_num":4309,"eff_space":335033460,"db_len":1350204}}},"version":"BLASTP 2.3.0+","program":"blastp","reference":"Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), \\"Gapped BLAST and PSI-BLAST: a new generation of protein database search programs\\", Nucleic Acids Res. 25:3389-3402."}}],{"kb|g.0.peg.4288":{"genome_name":"Escherichia coli K12","function":"Threonine synthase (EC 4.2.3.1)","genome_id":"kb|g.0"}}],"id":"8527913568541408","version":"1.1"}';
         # output = {'json_output': 'this is a sample output result'}
-        jsonQueryReturn = json.loads(queryReturn)
+        # jsonQueryReturn = json.loads(queryReturn)
         report = jsonQueryReturn['result'][0][0]['report']
         hitsList = report["results"]["search"]["hits"]
         # hits = self.formatHitList(hitsList)
@@ -149,6 +165,6 @@ class HomologySearch:
         # At some point might do deeper type checking...
         if not isinstance(returnVal, dict):
             raise ValueError('Method blast_fasta return value ' +
-                             'output is not type dict as required.')
+                             'returnVal is not type dict as required.')
         # return the results
         return [returnVal]
