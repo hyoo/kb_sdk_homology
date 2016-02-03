@@ -97,6 +97,18 @@
                     "target_property": "database"
                 },
                 {
+                    "input_parameter": "program",
+                    "target_property": "program"
+                },
+                {
+                    "input_parameter": "max_hit",
+                    "target_property": "max_hit"
+                },
+                {
+                    "input_parameter": "evalue_cutoff",
+                    "target_property": "evalue_cutoff"
+                },
+                {
                     "input_parameter": "output_name",
                     "target_property": "output_name"
                 }
