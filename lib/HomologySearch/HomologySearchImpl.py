@@ -161,6 +161,7 @@ class HomologySearch:
             }
         )
         print('saved to workspace')
+        returnVal = {'blast_output_name': params["output_name"], 'workspaceName': params['workspace_name']}
         print(returnVal)
         #END blast_fasta
 
