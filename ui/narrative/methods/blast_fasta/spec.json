@@ -116,7 +116,7 @@
             "output_mapping": [
                 {
                     "narrative_system_variable": "workspace",
-                    "target_property": "workspace_name"
+                    "target_property": "workspaceName"
                 },
                 {
                     "input_parameter": "output_name",
