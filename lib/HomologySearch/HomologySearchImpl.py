@@ -148,6 +148,10 @@ class HomologySearch:
         }
         # print returnVal
         # Step 4 - save in workspace
+        provenance = [{}]
+        if 'provenance' in ctx:
+            provenance = ctx['provenance']
+
         token = ctx['token']
         ws = workspaceService(self.workspaceURL, token=token)
         res = ws.save_objects(
@@ -156,6 +160,7 @@ class HomologySearch:
                 "objects": [{
                     "type": "GenomeUtil.BlastOutput",
                     "data": returnVal,
+                    "provenance": provenance,
                     "name": params["output_name"]
                 }]
             }
