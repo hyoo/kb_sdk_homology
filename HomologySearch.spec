@@ -108,10 +108,14 @@ module HomologySearch {
     BlastOutput_iterations BlastOutput_iterations;
   } BlastOutput;
 
+  typedef structure {
+    string blast_output_name;
+    string workspaceName;
+  } BlastOutputRef;
   /*
   methods
   */
   funcdef blast_fasta(HomologySearchInputParams params)
-    returns (BlastOutput returnVal)
+    returns (BlastOutputRef returnVal)
     authentication required;
 };
