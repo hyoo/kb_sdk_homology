@@ -65,8 +65,11 @@ class HomologySearchTest(unittest.TestCase):
         }
 
         result = self.getImpl().blast_fasta(self.getContext(), params)
-        # print result
-        # self.assertTrue(len(result[0]['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']) >= 1)
+        ws = result[0]
+        blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
+        hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
+        # print "hits", hits
+        self.assertTrue(len(hits) >= 1)
 
     def test_blast_fasta_to_genomes(self):
         params = {
@@ -82,5 +85,8 @@ class HomologySearchTest(unittest.TestCase):
         }
 
         result = self.getImpl().blast_fasta(self.getContext(), params)
-        # print result
-        # self.assertTrue(len(result[0]['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']) >= 1)
+        ws = result[0]
+        blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
+        hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
+        # print "hits", hits
+        self.assertTrue(len(hits) >= 1)
