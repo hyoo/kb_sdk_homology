@@ -28,9 +28,18 @@
             "advanced": false,
             "allow_multiple": false,
             "default_values": [ "kbase_nr.faa" ],
-            "field_type": "text",
-            "text_options": {
-                "validate_as": "string"
+            "field_type": "dropdown",
+            "dropdown_options": {
+                "options": [
+                    {
+                        "value": "kbase_nr.faa",
+                        "display": "KBase Non-redundant Protein Sequences (NR-faa)"
+                    },
+                    {
+                        "value": "kbase_nr.ffn",
+                        "display": "KBase Non-redundant gene sequences (NR-ffn)"
+                    }
+                ]
             }
         },
         {
@@ -39,26 +48,64 @@
             "advanced": false,
             "allow_multiple": false,
             "default_values": [ "blastp" ],
-            "field_type": "text",
-            "text_options": {
-                "validate_as": "string"
+            "field_type": "dropdown",
+            "dropdown_options": {
+                "options": [
+                    {
+                        "value": "blastn",
+                        "display": "blastn"
+                    },
+                    {
+                        "value": "blastp",
+                        "display": "blastp"
+                    },
+                    {
+                        "value": "blastx",
+                        "display": "blastx"
+                    },
+                    {
+                        "value": "tblastn",
+                        "display": "tblastn"
+                    },
+                    {
+                        "value": "tblastx",
+                        "display": "tblastx"
+                    }
+                ]
             }
         },
         {
             "id": "max_hit",
             "optional": false,
-            "advanced": false,
+            "advanced": true,
             "allow_multiple": false,
             "default_values": [ 10 ],
-            "field_type": "text",
-            "text_options": {
-                "validate_as": "int"
+            "field_type": "dropdown",
+            "dropdown_options": {
+                "options": [
+                    {
+                        "value": 1,
+                        "display": "1"
+                    },
+                    {
+                        "value": 10,
+                        "display": "10"
+                    },
+                    {
+                        "value": 100,
+                        "display": "100"
+                    },
+                    {
+                        "value": 1000,
+                        "display": "1000"
+                    }
+                ]
             }
         },
         {
             "id": "evalue_cutoff",
             "optional": false,
-            "advanced": false,
+            "advanced": true,
             "allow_multiple": false,
             "default_values": [ "1e-5" ],
             "field_type": "text",
