@@ -29,14 +29,14 @@ suggestions:
 parameters :
     sequence :
         ui-name : |
-            FASTA sequence to search
+            Sequence
         short-hint: |
             FASTA sequence to search
     database :
         ui-name : |
-            Search on pre-defined database
-        short-hint : |
             Database
+        short-hint : |
+            Search on pre-defined database
     program :
         ui-name : |
             program
@@ -46,7 +46,7 @@ parameters :
         ui-name : |
             max hit
         short-hint : |
-            Max hit
+            Maximum number of hits
     evalue_cutoff :
         ui-name : |
             e-value cutoff
@@ -56,7 +56,7 @@ parameters :
         ui-name : |
             Search Type
         short-hint : |
-            Search on genomic sequence or genmic features
+            Search on genomic sequence or genomic features
     output_name :
         ui-name : Output object name
         short-hint : Your desired output object name in the workspace
