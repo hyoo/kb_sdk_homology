@@ -123,15 +123,15 @@ class HomologySearch:
             "BlastOutput_program": report['program'],
             "BlastOutput_query-ID": report['results']['search']['query_id'],
             "BlastOutput_query-def": report['results']['search']['query_title'],
-            "BlastOutput_query-len": report['results']['search']['query_len'],
+            "BlastOutput_query-len": str(report['results']['search']['query_len']),
             "BlastOutput_reference": report['reference'],
             "BlastOutput_version": report['version'],
             "BlastOutput_param": {
                 "Parameters": {
-                    "Parameters_expect": report['params']['expect'],
+                    "Parameters_expect": str(report['params']['expect']),
                     "Parameters_filter": report['params']['filter'],
-                    "Parameters_gap-extend": report['params']['gap_extend'],
-                    "Parameters_gap-open": report['params']['gap_open'],
+                    "Parameters_gap-extend": str(report['params']['gap_extend']),
+                    "Parameters_gap-open": str(report['params']['gap_open']),
                     "Parameters_matrix": report['params']['matrix'],
                     "Parameters_sc-match": "",
                     "Parameters_sc-mismatch": ""
