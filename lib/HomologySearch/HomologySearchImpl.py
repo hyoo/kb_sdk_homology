@@ -31,16 +31,16 @@ class HomologySearch:
     workspaceURL = None
     def formatHspList(self, list):
         name_map = {"Hsp_align-len": "align_len", "Hsp_bit-score": "bit_score",
-        "Hsp_evalue": "evalue","Hsp_hit-from": "hit_from",
-        "Hsp_hit-to": "hit_to","Hsp_hseq": "hseq", "Hsp_identity": "identity",
-        "Hsp_midline": "midline","Hsp_num": "num", "Hsp_positive": "positive",
-        "Hsp_qseq": "qseq","Hsp_query-from": "query_from", "Hsp_query-to": "query_to",
+        "Hsp_evalue": "evalue", "Hsp_hit-from": "hit_from",
+        "Hsp_hit-to": "hit_to", "Hsp_hseq": "hseq", "Hsp_identity": "identity",
+        "Hsp_midline": "midline", "Hsp_num": "num", "Hsp_positive": "positive",
+        "Hsp_qseq": "qseq", "Hsp_query-from": "query_from", "Hsp_query-to": "query_to",
         "Hsp_score": "score"}
         returnVal = []
         for item in list:
-            returnVal.append(dict(map(lambda (k,v): (k, str(item[v])), name_map.iteritems())))
+            returnVal.append(dict(map(lambda (k, v): (k, str(item[v])), name_map.iteritems())))
         return returnVal
-    def formatHitList(self, list):
+    def formatHitList(self, list, metadata):
         name_map = {"Hit_accession": "", "Hit_def": "", "Hit_id": "", "Hit_len": "len",
         "Hit_num": "num", "Hit_hsps": ""}
         returnVal = []
@@ -48,11 +48,13 @@ class HomologySearch:
             newItem = {}
             for name, val in name_map.items():
                 if name is "Hit_accession":
-                    newItem[name] = item['description'][0]['accession']
+                    # Hit_accession is displayed in GeneID column in the viewer
+                    # newItem[name] = item['description'][0]['accession']
+                    newItem[name] = item['description'][0]['id']
                 elif name is "Hit_id":
                     newItem[name] = item['description'][0]['id']
                 elif name is "Hit_def":
-                    newItem[name] = item['description'][0]['title']
+                    newItem[name] = metadata[item['description'][0]['id']]['function']
                 elif name is "Hit_hsps":
                     newItem[name] = {'Hsp': self.formatHspList(item['hsps'])}
                 elif val in item:
@@ -106,28 +108,31 @@ class HomologySearch:
         jsonQueryReturn = req.json()
         report = jsonQueryReturn['result'][0][0]['report']
         hitsList = report["results"]["search"]["hits"]
+        metadata = jsonQueryReturn['result'][1];
+        # identical = jsonQueryReturn['result'][2];
+
         # hits = self.formatHitList(hitsList)
         # print hits
         # hspsList = report["results"]["search"]["hits"][0]["hsps"]
         # hsps = self.formatHspList(hspsList)
         # print hsps
-        print('hits:', hitsList)
+        print('hits:', hitsList, metadata)
 
         returnVal = {
             "BlastOutput_db": "",
-            "BlastOutput_program": "",
-            "BlastOutput_query-ID": "",
-            "BlastOutput_query-def": "",
-            "BlastOutput_query-len": "",
-            "BlastOutput_reference": "",
-            "BlastOutput_version": "",
+            "BlastOutput_program": report['program'],
+            "BlastOutput_query-ID": report['results']['search']['query_id'],
+            "BlastOutput_query-def": report['results']['search']['query_title'],
+            "BlastOutput_query-len": report['results']['search']['query_len'],
+            "BlastOutput_reference": report['reference'],
+            "BlastOutput_version": report['version'],
             "BlastOutput_param": {
                 "Parameters": {
-                    "Parameters_expect": "",
-                    "Parameters_filter": "",
-                    "Parameters_gap-extend": "",
-                    "Parameters_gap-open": "",
-                    "Parameters_matrix": "",
+                    "Parameters_expect": report['params']['expect'],
+                    "Parameters_filter": report['params']['filter'],
+                    "Parameters_gap-extend": report['params']['gap_extend'],
+                    "Parameters_gap-open": report['params']['gap_open'],
+                    "Parameters_matrix": report['params']['matrix'],
                     "Parameters_sc-match": "",
                     "Parameters_sc-mismatch": ""
                 }
@@ -136,7 +141,7 @@ class HomologySearch:
                 "Iteration": [
                     {
                         "Iteration_hits": {
-                            "Hit": self.formatHitList(hitsList)
+                            "Hit": self.formatHitList(hitsList, metadata)
                         },
                         "Iteration_iter-num": "",
                         "Iteration_query-ID": "",
