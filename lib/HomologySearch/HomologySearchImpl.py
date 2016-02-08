@@ -154,7 +154,7 @@ class HomologySearch:
                                 "Statistics_db-num": str(query['stat']['db_num']),
                                 "Statistics_eff-space": str(query['stat']['eff_space']),
                                 "Statistics_entropy": str(query['stat']['entropy']),
-                                "Statistics_hsp-len": str(query['stat']['lsp_len']),
+                                "Statistics_hsp-len": str(query['stat']['hsp_len']),
                                 "Statistics_kappa": str(query['stat']['kappa']),
                                 "Statistics_lambda": str(query['stat']['lambda'])
                             }
