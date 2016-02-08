@@ -107,7 +107,8 @@ class HomologySearch:
         # Step 3 - wrap results
         jsonQueryReturn = req.json()
         report = jsonQueryReturn['result'][0][0]['report']
-        hitsList = report["results"]["search"]["hits"]
+        query = report['results']['search']
+        hitsList = report['results']['search']['hits']
         metadata = jsonQueryReturn['result'][1];
         # identical = jsonQueryReturn['result'][2];
 
@@ -121,9 +122,9 @@ class HomologySearch:
         returnVal = {
             "BlastOutput_db": "",
             "BlastOutput_program": report['program'],
-            "BlastOutput_query-ID": report['results']['search']['query_id'],
-            "BlastOutput_query-def": report['results']['search']['query_title'],
-            "BlastOutput_query-len": str(report['results']['search']['query_len']),
+            "BlastOutput_query-ID": query['query_id'],
+            "BlastOutput_query-def": query['query_title'],
+            "BlastOutput_query-len": str(query['query_len']),
             "BlastOutput_reference": report['reference'],
             "BlastOutput_version": report['version'],
             "BlastOutput_param": {
@@ -144,9 +145,20 @@ class HomologySearch:
                             "Hit": self.formatHitList(hitsList, metadata)
                         },
                         "Iteration_iter-num": "",
-                        "Iteration_query-ID": "",
-                        "Iteration_query-def": "",
-                        "Iteration_query-len": ""
+                        "Iteration_query-ID": query['query_id'],
+                        "Iteration_query-def": query['query_title'],
+                        "Iteration_query-len": str(query['query_len']),
+                        "Iteration_stat": {
+                            "Statistics": {
+                                "Statistics_db-len": str(query['stat']['db_len']),
+                                "Statistics_db-num": str(query['stat']['db_num']),
+                                "Statistics_eff-space": str(query['stat']['eff_space']),
+                                "Statistics_entropy": str(query['stat']['entropy']),
+                                "Statistics_hsp-len": str(query['stat']['lsp_len']),
+                                "Statistics_kappa": str(query['stat']['kappa']),
+                                "Statistics_lambda": str(query['stat']['lambda'])
+                            }
+                        }
                     }
                 ]
             }
