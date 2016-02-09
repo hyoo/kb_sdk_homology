@@ -1,6 +1,5 @@
 import unittest
-import os
-import json
+import inspect
 import time
 
 from os import environ
@@ -53,15 +52,22 @@ class HomologySearchTest(unittest.TestCase):
     def getContext(self):
         return self.__class__.ctx
 
-    def test_blast_fasta_to_database(self):
+    def getNucleotideQuerySequence(self):
+        return ">fig|879462.4.peg.2\natggttaaagtttatgccccggcttccagtgccaatatgagcgtcgggtttgatgtgctc\nggggcggcggtgacacctgttgatggtgcattgctcggagatgtagtcacggttgaggcg\ngcagagacattcagtctcaacaacctcggacgctttgccgataagctgccgtcagaacca\ncgggaaaatatcgtttatcagtgctgggagcgtttttgccaggaactgggtaagcaaatt\nccagtggcgatgaccctggaaaagaatatgccgatcggttcgggcttaggctccagtgcc\ntgttcggtggtcgcggcgctgatggcgatgaatgaacactgcggcaagccgcttaatgac\nactcgtttgctggctttgatgggcgagctggaaggccgtatctccggcagcattcattac\ngacaacgtggcaccgtgttttctcggtggtatgcagttgatgatcgaagaaaacgacatc\natcagccagcaagtgccagggtttgatgagtggctgtgggtgctggcgtatccggggatt\naaagtctcgacggcagaagccagggctattttaccggcgcagtatcgccgccaggattgc\nattgcgcacgggcgacatctggcaggcttcattcacgcctgctattcccgtcagcctgag\ncttgccgcgaagctgatgaaagatgttatcgctgaaccctaccgtgaacggttactgcca\nggcttccggcaggcgcggcaggcggtcgcggaaatcggcgcggtagcgagcggtatctcc\nggctccggcccgaccttgttcgctctgtgtgacaagccggaaaccgcccagcgcgttgcc\ngactggttgggtaagaactacctgcaaaatcaggaaggttttgttcatatttgccggctg\ngatacggcgggcgcacgagtactggaaaactaa\n"
+
+    def getProteinQuerySequence(self):
+        return ">fig|83333.1.peg.4\nMKLYNLKDHNEQVSFAQAVTQGLGKNQGLFFPHDLPEFSLTEIDEMLKLDFVTRSAKILS\nAFIGDEIPQEILEERVRAAFAFPAPVANVESDVGCLELFHGPTLAFKDFGGRFMAQMLTH\nIAGDKPVTILTATSGDTGAAVAHAFYGLPNVKVVILYPRGKISPLQEKLFCTLGGNIETV\nAIDGDFDACQALVKQAFDDEELKVALGLNSANSINISRLLAQICYYFEAVAQLPQETRNQ\nLVVSVPSGNFGDLTAGLLAKSLGLPVKRFIAATNVNDTVPRFLHDGQWSPKATQATLSNA\nMDVSQPNNWPRVEELFRRKIWQLKELGYAAVDDETTQQTMRELKELGYTSEPHAAVAYRA\nLRDQLNPGEYGLFLGTAHPAKFKESVEAILGETLDLPKELAERADLPLLSHNLPADFAAL\nRKLMMNHQ\n"
+
+    def test_blastp_fasta_to_database(self):
+        print('running %s' % inspect.stack()[0][3])
         params = {
             'workspace_name': self.getWsName(),
-            'sequence': ">fig|83333.1.peg.4\nMKLYNLKDHNEQVSFAQAVTQGLGKNQGLFFPHDLPEFSLTEIDEMLKLDFVTRSAKILS\nAFIGDEIPQEILEERVRAAFAFPAPVANVESDVGCLELFHGPTLAFKDFGGRFMAQMLTH\nIAGDKPVTILTATSGDTGAAVAHAFYGLPNVKVVILYPRGKISPLQEKLFCTLGGNIETV\nAIDGDFDACQALVKQAFDDEELKVALGLNSANSINISRLLAQICYYFEAVAQLPQETRNQ\nLVVSVPSGNFGDLTAGLLAKSLGLPVKRFIAATNVNDTVPRFLHDGQWSPKATQATLSNA\nMDVSQPNNWPRVEELFRRKIWQLKELGYAAVDDETTQQTMRELKELGYTSEPHAAVAYRA\nLRDQLNPGEYGLFLGTAHPAKFKESVEAILGETLDLPKELAERADLPLLSHNLPADFAAL\nRKLMMNHQ\n",
+            'sequence': self.getProteinQuerySequence(),
             'program': 'blastp',
             'database': 'kbase_nr.faa',
             'evalue_cutoff': '1e-5',
             'max_hit': 10,
-            'output_name': 'blast_output_0'
+            'output_name': 'blastp_output_to_database'
         }
 
         result = self.getImpl().blast_fasta(self.getContext(), params)
@@ -71,17 +77,102 @@ class HomologySearchTest(unittest.TestCase):
         # print "hits", hits
         self.assertTrue(len(hits) >= 1)
 
-    def test_blast_fasta_to_genomes(self):
+    def test_blastp_fasta_to_genomes(self):
+        print('running %s' % inspect.stack()[0][3])
         params = {
             'workspace_name': self.getWsName(),
-            'sequence': ">fig|83333.1.peg.4\nMKLYNLKDHNEQVSFAQAVTQGLGKNQGLFFPHDLPEFSLTEIDEMLKLDFVTRSAKILS\nAFIGDEIPQEILEERVRAAFAFPAPVANVESDVGCLELFHGPTLAFKDFGGRFMAQMLTH\nIAGDKPVTILTATSGDTGAAVAHAFYGLPNVKVVILYPRGKISPLQEKLFCTLGGNIETV\nAIDGDFDACQALVKQAFDDEELKVALGLNSANSINISRLLAQICYYFEAVAQLPQETRNQ\nLVVSVPSGNFGDLTAGLLAKSLGLPVKRFIAATNVNDTVPRFLHDGQWSPKATQATLSNA\nMDVSQPNNWPRVEELFRRKIWQLKELGYAAVDDETTQQTMRELKELGYTSEPHAAVAYRA\nLRDQLNPGEYGLFLGTAHPAKFKESVEAILGETLDLPKELAERADLPLLSHNLPADFAAL\nRKLMMNHQ\n",
+            'sequence': self.getProteinQuerySequence(),
             'program': 'blastp',
             'database': '',
             'genome_ids': ['kb|g.0'],
             'search_type': 'features',
             'evalue_cutoff': '1e-5',
             'max_hit': 10,
-            'output_name': 'blast_output_1'
+            'output_name': 'blastp_output_to_genomes'
+        }
+
+        result = self.getImpl().blast_fasta(self.getContext(), params)
+        ws = result[0]
+        blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
+        hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
+        # print "hits", hits
+        self.assertTrue(len(hits) >= 1)
+
+    def test_blastn_fasta_to_genomes(self):
+        print('running %s' % inspect.stack()[0][3])
+        params = {
+            'workspace_name': self.getWsName(),
+            'sequence': self.getNucleotideQuerySequence(),
+            'program': 'blastn',
+            'database': '',
+            'genome_ids': ['kb|g.0'],
+            'search_type': 'features',
+            'evalue_cutoff': '1e-5',
+            'max_hit': 10,
+            'output_name': 'blastn_output_to_genomes'
+        }
+
+        result = self.getImpl().blast_fasta(self.getContext(), params)
+        ws = result[0]
+        blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
+        hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
+        # print "hits", hits
+        self.assertTrue(len(hits) >= 1)
+
+    def test_blastx_fasta_to_genomes(self):
+        print('running %s' % inspect.stack()[0][3])
+        params = {
+            'workspace_name': self.getWsName(),
+            'sequence': self.getNucleotideQuerySequence(),
+            'program': 'blastx',
+            'database': '',
+            'genome_ids': ['kb|g.0'],
+            'search_type': 'features',
+            'evalue_cutoff': '1e-5',
+            'max_hit': 10,
+            'output_name': 'blastx_output_to_genomes'
+        }
+
+        result = self.getImpl().blast_fasta(self.getContext(), params)
+        ws = result[0]
+        blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
+        hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
+        # print "hits", hits
+        self.assertTrue(len(hits) >= 1)
+
+    def test_tblastn_fasta_to_genomes(self):
+        print('running %s' % inspect.stack()[0][3])
+        params = {
+            'workspace_name': self.getWsName(),
+            'sequence': self.getProteinQuerySequence(),
+            'program': 'tblastn',
+            'database': '',
+            'genome_ids': ['kb|g.0'],
+            'search_type': 'features',
+            'evalue_cutoff': '1e-5',
+            'max_hit': 10,
+            'output_name': 'tblastn_output_to_genomes'
+        }
+
+        result = self.getImpl().blast_fasta(self.getContext(), params)
+        ws = result[0]
+        blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
+        hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
+        # print "hits", hits
+        self.assertTrue(len(hits) >= 1)
+
+    def test_tblastx_fasta_to_genomes(self):
+        print('running %s' % inspect.stack()[0][3])
+        params = {
+            'workspace_name': self.getWsName(),
+            'sequence': self.getNucleotideQuerySequence(),
+            'program': 'tblastx',
+            'database': '',
+            'genome_ids': ['kb|g.0'],
+            'search_type': 'features',
+            'evalue_cutoff': '1e-5',
+            'max_hit': 10,
+            'output_name': 'tblastx_output_to_genomes'
         }
 
         result = self.getImpl().blast_fasta(self.getContext(), params)
