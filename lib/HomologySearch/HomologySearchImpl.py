@@ -38,7 +38,7 @@ class HomologySearch:
         "Hsp_score": "bit_score"}
         returnVal = []
         for item in list:
-            returnVal.append(dict(map(lambda (k, v): (k, str(item[v])), name_map.iteritems())))
+            returnVal.append(dict(map(lambda (k, v): (k, str(item.get(v, ''))), name_map.iteritems())))
         return returnVal
     def formatHitList(self, list, metadata):
         name_map = {"Hit_accession": "", "Hit_def": "", "Hit_id": "", "Hit_len": "len",
@@ -54,7 +54,7 @@ class HomologySearch:
                 elif name is "Hit_id":
                     newItem[name] = item['description'][0]['id']
                 elif name is "Hit_def":
-                    newItem[name] = metadata[item['description'][0]['id']]['function']
+                    newItem[name] = metadata[item['description'][0]['id']].get('function', '')
                 elif name is "Hit_hsps":
                     newItem[name] = {'Hsp': self.formatHspList(item['hsps'])}
                 elif val in item:
@@ -129,11 +129,11 @@ class HomologySearch:
             "BlastOutput_version": report['version'],
             "BlastOutput_param": {
                 "Parameters": {
-                    "Parameters_expect": str(report['params']['expect']),
-                    "Parameters_filter": report['params']['filter'],
-                    "Parameters_gap-extend": str(report['params']['gap_extend']),
-                    "Parameters_gap-open": str(report['params']['gap_open']),
-                    "Parameters_matrix": report['params']['matrix'],
+                    "Parameters_expect": str(report['params'].get('expect', '')),
+                    "Parameters_filter": report['params'].get('filter', ''),
+                    "Parameters_gap-extend": str(report['params'].get('gap_extend', '')),
+                    "Parameters_gap-open": str(report['params'].get('gap_open', '')),
+                    "Parameters_matrix": report['params'].get('matrix', ''),
                     "Parameters_sc-match": "",
                     "Parameters_sc-mismatch": ""
                 }
