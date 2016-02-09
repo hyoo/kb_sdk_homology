@@ -35,7 +35,7 @@ class HomologySearch:
         "Hsp_hit-to": "hit_to", "Hsp_hseq": "hseq", "Hsp_identity": "identity",
         "Hsp_midline": "midline", "Hsp_num": "num", "Hsp_positive": "positive",
         "Hsp_qseq": "qseq", "Hsp_query-from": "query_from", "Hsp_query-to": "query_to",
-        "Hsp_score": "score"}
+        "Hsp_score": "bit_score"}
         returnVal = []
         for item in list:
             returnVal.append(dict(map(lambda (k, v): (k, str(item[v])), name_map.iteritems())))
