@@ -38,6 +38,10 @@
                     {
                         "value": "kbase_nr.ffn",
                         "display": "KBase Non-redundant gene sequences (NR-ffn)"
+                    },
+                    {
+                        "value": "kbase.fna",
+                        "display": "KBase genome sequences (fna)"
                     }
                 ]
             }
@@ -79,7 +83,7 @@
             "optional": false,
             "advanced": true,
             "allow_multiple": false,
-            "default_values": [ 10 ],
+            "default_values": [ 100 ],
             "field_type": "dropdown",
             "dropdown_options": {
                 "options": [
