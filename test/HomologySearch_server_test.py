@@ -77,6 +77,141 @@ class HomologySearchTest(unittest.TestCase):
         # print "hits", hits
         self.assertTrue(len(hits) >= 1)
 
+    def test_blastn_fasta_to_database_ffn(self):
+        print('running %s' % inspect.stack()[0][3])
+        params = {
+            'workspace_name': self.getWsName(),
+            'sequence': self.getNucleotideQuerySequence(),
+            'program': 'blastn',
+            'database': 'kbase_nr.ffn',
+            'evalue_cutoff': '1e-5',
+            'max_hit': 10,
+            'output_name': 'blastn_output_to_database_ffn'
+        }
+
+        result = self.getImpl().blast_fasta(self.getContext(), params)
+        ws = result[0]
+        blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
+        hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
+        # print "hits", hits
+        self.assertTrue(len(hits) >= 1)
+
+    def test_blastn_fasta_to_database_fna(self):
+        print('running %s' % inspect.stack()[0][3])
+        params = {
+            'workspace_name': self.getWsName(),
+            'sequence': self.getNucleotideQuerySequence(),
+            'program': 'blastn',
+            'database': 'kbase.fna',
+            'evalue_cutoff': '1e-5',
+            'max_hit': 10,
+            'output_name': 'blastn_output_to_database_fna'
+        }
+
+        result = self.getImpl().blast_fasta(self.getContext(), params)
+        ws = result[0]
+        blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
+        hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
+        # print "hits", hits
+        self.assertTrue(len(hits) >= 1)
+
+    def test_blastx_fasta_to_database(self):
+        print('running %s' % inspect.stack()[0][3])
+        params = {
+            'workspace_name': self.getWsName(),
+            'sequence': self.getNucleotideQuerySequence(),
+            'program': 'blastx',
+            'database': 'kbase_nr.faa',
+            'evalue_cutoff': '1e-5',
+            'max_hit': 10,
+            'output_name': 'blastx_output_to_database'
+        }
+
+        result = self.getImpl().blast_fasta(self.getContext(), params)
+        ws = result[0]
+        blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
+        hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
+        # print "hits", hits
+        self.assertTrue(len(hits) >= 1)
+
+    def test_tblastn_fasta_to_database_ffn(self):
+        print('running %s' % inspect.stack()[0][3])
+        params = {
+            'workspace_name': self.getWsName(),
+            'sequence': self.getProteinQuerySequence(),
+            'program': 'tblastn',
+            'database': 'kbase_nr.ffn',
+            'evalue_cutoff': '1e-5',
+            'max_hit': 10,
+            'output_name': 'tblastn_output_to_database_ffn'
+        }
+
+        result = self.getImpl().blast_fasta(self.getContext(), params)
+        ws = result[0]
+        blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
+        hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
+        # print "hits", hits
+        self.assertTrue(len(hits) >= 1)
+
+    # this may take too long
+    # def test_tblastn_fasta_to_database_fna(self):
+    #     print('running %s' % inspect.stack()[0][3])
+    #     params = {
+    #         'workspace_name': self.getWsName(),
+    #         'sequence': self.getProteinQuerySequence(),
+    #         'program': 'tblastn',
+    #         'database': 'kbase.fna',
+    #         'evalue_cutoff': '1e-5',
+    #         'max_hit': 10,
+    #         'output_name': 'tblastn_output_to_database_fna'
+    #     }
+    #
+    #     result = self.getImpl().blast_fasta(self.getContext(), params)
+    #     ws = result[0]
+    #     blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
+    #     hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
+    #     # print "hits", hits
+    #     self.assertTrue(len(hits) >= 1)
+
+    def test_tblastx_fasta_to_database_ffn(self):
+        print('running %s' % inspect.stack()[0][3])
+        params = {
+            'workspace_name': self.getWsName(),
+            'sequence': self.getNucleotideQuerySequence(),
+            'program': 'tblastx',
+            'database': 'kbase_nr.ffn',
+            'evalue_cutoff': '1e-5',
+            'max_hit': 10,
+            'output_name': 'tblastx_output_to_database_ffn'
+        }
+
+        result = self.getImpl().blast_fasta(self.getContext(), params)
+        ws = result[0]
+        blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
+        hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
+        # print "hits", hits
+        self.assertTrue(len(hits) >= 1)
+
+    # this may take too long
+    # def test_tblastx_fasta_to_database_fna(self):
+    #     print('running %s' % inspect.stack()[0][3])
+    #     params = {
+    #         'workspace_name': self.getWsName(),
+    #         'sequence': self.getNucleotideQuerySequence(),
+    #         'program': 'tblastx',
+    #         'database': 'kbase.fna',
+    #         'evalue_cutoff': '1e-5',
+    #         'max_hit': 10,
+    #         'output_name': 'tblastx_output_to_database_fna'
+    #     }
+    #
+    #     result = self.getImpl().blast_fasta(self.getContext(), params)
+    #     ws = result[0]
+    #     blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
+    #     hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
+    #     # print "hits", hits
+    #     self.assertTrue(len(hits) >= 1)
+
     def test_blastp_fasta_to_genomes(self):
         print('running %s' % inspect.stack()[0][3])
         params = {
