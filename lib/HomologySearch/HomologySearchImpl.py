@@ -109,7 +109,7 @@ class HomologySearch:
         report = jsonQueryReturn['result'][0][0]['report']
         query = report['results']['search']
         hitsList = report['results']['search']['hits']
-        metadata = jsonQueryReturn['result'][1];
+        metadata = jsonQueryReturn['result'][1]
         # identical = jsonQueryReturn['result'][2];
 
         # hits = self.formatHitList(hitsList)
