@@ -12,13 +12,13 @@ module HomologySearch {
   */
 
   typedef structure {
-    string workspace;
+    string workspace_name;
     string sequence;
     string database;
     string search_type;
     list<string> genome_ids;
     string program;
-    int max_hits;
+    int max_hit;
     string evalue_cutoff;
     string output_name;
   } HomologySearchInputParams;

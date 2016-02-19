@@ -87,7 +87,7 @@ class HomologySearch:
         if 'program' not in params:
             raise ValueError('Parameter program is not set in input arguments')
         if 'evalue_cutoff' not in params:
-            raise ValueError('Parameter evalu_cutoff is not set in input arguments')
+            raise ValueError('Parameter evalue_cutoff is not set in input arguments')
         if 'max_hit' not in params:
             raise ValueError('Parameter max_hit is not set in input arguments')
 
