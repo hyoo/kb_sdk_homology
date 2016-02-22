@@ -19,7 +19,7 @@
             "default_values": [ "" ],
             "field_type": "textarea",
             "textarea_options": {
-                "n_rows": 4
+                "n_rows": 5
             }
         },
         {
@@ -27,21 +27,25 @@
             "optional": false,
             "advanced": false,
             "allow_multiple": false,
-            "default_values": [ "kbase_nr.faa" ],
+            "default_values": [ "kbase_nr.ffn" ],
             "field_type": "dropdown",
             "dropdown_options": {
                 "options": [
                     {
                         "value": "kbase_nr.faa",
-                        "display": "KBase Non-redundant Protein Sequences (NR-faa)"
+                        "display": "KBase non-redundant protein sequences (NR-faa)"
                     },
                     {
                         "value": "kbase_nr.ffn",
-                        "display": "KBase Non-redundant gene sequences (NR-ffn)"
+                        "display": "KBase non-redundant gene sequences (NR-ffn)"
                     },
                     {
                         "value": "kbase.fna",
                         "display": "KBase genome sequences (fna)"
+                    },
+                    {
+                        "value": "",
+                        "display": "Search within select genomes"
                     }
                 ]
             }
@@ -49,7 +53,7 @@
         {
             "id": "program",
             "optional": false,
-            "advanced": false,
+            "advanced": true,
             "allow_multiple": false,
             "default_values": [ "blastp" ],
             "field_type": "dropdown",
@@ -57,23 +61,23 @@
                 "options": [
                     {
                         "value": "blastn",
-                        "display": "blastn"
+                        "display": "blastn - search a nucleotide database using a nucleotide query"
                     },
                     {
                         "value": "blastp",
-                        "display": "blastp"
+                        "display": "blastp - search protein database using a protein query"
                     },
                     {
                         "value": "blastx",
-                        "display": "blastx"
+                        "display": "blastx - search protein database using a translated nucleotide query"
                     },
                     {
                         "value": "tblastn",
-                        "display": "tblastn"
+                        "display": "tblastn - search translated nucleotide database using a protein query"
                     },
                     {
                         "value": "tblastx",
-                        "display": "tblastx"
+                        "display": "tblastx - search translated nucleotide database using a translated nucleotide query"
                     }
                 ]
             }
@@ -83,7 +87,7 @@
             "optional": false,
             "advanced": true,
             "allow_multiple": false,
-            "default_values": [ 100 ],
+            "default_values": [ 50 ],
             "field_type": "dropdown",
             "dropdown_options": {
                 "options": [
@@ -96,12 +100,16 @@
                         "display": "10"
                     },
                     {
+                        "value": 50,
+                        "display": "50"
+                    },
+                    {
                         "value": 100,
                         "display": "100"
                     },
                     {
-                        "value": 1000,
-                        "display": "1000"
+                        "value": 250,
+                        "display": "250"
                     }
                 ]
             }
@@ -111,7 +119,7 @@
             "optional": false,
             "advanced": true,
             "allow_multiple": false,
-            "default_values": [ "1e-5" ],
+            "default_values": [ "10" ],
             "field_type": "text",
             "text_options": {
                 "validate_as": "string"

@@ -31,30 +31,30 @@ parameters :
         ui-name : |
             Sequence
         short-hint: |
-            FASTA sequence to search
+            Enter a query nucleotide or protein sequence to search.
     database :
         ui-name : |
             Database
         short-hint : |
-            Search on pre-defined database
+            Search against pre-defined database or select genomes
     program :
         ui-name : |
-            program
+            Program
         short-hint : |
             program
     max_hit :
         ui-name : |
-            max hit
+            Max hits
         short-hint : |
             Maximum number of hits
     evalue_cutoff :
         ui-name : |
-            e-value cutoff
+            E value threshold
         short-hint : |
-            e-value cutoff
+            E value threshold
     search_type :
         ui-name : |
-            Search Type
+            Search for
         short-hint : |
             Search on genomic sequence or genomic features
     output_name :
