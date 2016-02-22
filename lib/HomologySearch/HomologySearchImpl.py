@@ -35,7 +35,7 @@ class HomologySearch:
         "Hsp_hit-to": "hit_to", "Hsp_hseq": "hseq", "Hsp_identity": "identity",
         "Hsp_midline": "midline", "Hsp_num": "num", "Hsp_positive": "positive",
         "Hsp_qseq": "qseq", "Hsp_query-from": "query_from", "Hsp_query-to": "query_to",
-        "Hsp_score": "bit_score"}
+        "Hsp_score": "score"}
         returnVal = []
         for item in list:
             returnVal.append(dict(map(lambda (k, v): (k, str(item.get(v, ''))), name_map.iteritems())))
@@ -48,9 +48,7 @@ class HomologySearch:
             newItem = {}
             for name, val in name_map.items():
                 if name is "Hit_accession":
-                    # Hit_accession is displayed in GeneID column in the viewer
-                    # newItem[name] = item['description'][0]['accession']
-                    newItem[name] = item['description'][0]['id']
+                    newItem[name] = item['description'][0]['accession']
                 elif name is "Hit_id":
                     newItem[name] = item['description'][0]['id']
                 elif name is "Hit_def":
