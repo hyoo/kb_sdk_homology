@@ -49,6 +49,7 @@ module HomologySearch {
     string Hsp_hit-frame;
     string Hsp_hit-from;
     string Hsp_hit-to;
+    String Hsp_hit-strand;
     string Hsp_hseq;
     string Hsp_identity;
     string Hsp_midline;
@@ -58,7 +59,9 @@ module HomologySearch {
     string Hsp_query-frame;
     string Hsp_query-from;
     string Hsp_query-to;
+    String Hsp_query-strand;
     string Hsp_score;
+    String Hsp_gaps;
   } Hsp_details;
 
   typedef list <Hsp_details> Hsp;

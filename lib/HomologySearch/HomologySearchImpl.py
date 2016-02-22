@@ -30,12 +30,13 @@ class HomologySearch:
     # Class variables and functions can be defined in this block
     workspaceURL = None
     def formatHspList(self, list):
-        name_map = {"Hsp_align-len": "align_len", "Hsp_bit-score": "bit_score",
-        "Hsp_evalue": "evalue", "Hsp_hit-from": "hit_from",
-        "Hsp_hit-to": "hit_to", "Hsp_hseq": "hseq", "Hsp_identity": "identity",
-        "Hsp_midline": "midline", "Hsp_num": "num", "Hsp_positive": "positive",
-        "Hsp_qseq": "qseq", "Hsp_query-from": "query_from", "Hsp_query-to": "query_to",
-        "Hsp_score": "score"}
+        name_map = {"Hsp_align-len": "align_len", "Hsp_bit-score": "bit_score", "Hsp_evalue": "evalue",
+                    'Hsp_hit-frame': "hit_frame", "Hsp_hit-from": "hit_from", "Hsp_hit-to": "hit_to",
+                    "Hsp_hit-strand": "hit_strand",
+                    "Hsp_hseq": "hseq", "Hsp_identity": "identity", "Hsp_midline": "midline", "Hsp_num": "num",
+                    "Hsp_positive": "positive", "Hsp_qseq": "qseq",
+                    "Hsp_query-frame": "query_frame", "Hsp_query-from": "query_from", "Hsp_query-to": "query_to",
+                    "Hsp_query-strand": "query_strand", "Hsp_score": "score", "Hsp_gaps": "gaps"}
         returnVal = []
         for item in list:
             returnVal.append(dict(map(lambda (k, v): (k, str(item.get(v, ''))), name_map.iteritems())))
