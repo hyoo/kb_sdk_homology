@@ -55,7 +55,7 @@
             "optional": false,
             "advanced": true,
             "allow_multiple": false,
-            "default_values": [ "blastp" ],
+            "default_values": [ "blastn" ],
             "field_type": "dropdown",
             "dropdown_options": {
                 "options": [

@@ -122,7 +122,7 @@ class HomologySearch:
             "BlastOutput_db": "",
             "BlastOutput_program": report['program'],
             "BlastOutput_query-ID": query['query_id'],
-            "BlastOutput_query-def": query['query_title'],
+            "BlastOutput_query-def": query.get('query_title', ''),
             "BlastOutput_query-len": str(query['query_len']),
             "BlastOutput_reference": report['reference'],
             "BlastOutput_version": report['version'],
