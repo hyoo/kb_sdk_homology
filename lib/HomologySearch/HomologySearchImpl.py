@@ -93,10 +93,10 @@ class HomologySearch:
         # Step 2 - query
         if params['database'] is not "":
             req_method = "HomologyService.blast_fasta_to_database"
-            req_params = [params['sequence'], params['program'], params['database'], params['evalue_cutoff'], params['max_hit'], 70]
+            req_params = [params['sequence'], params['program'], params['database'], params['evalue_cutoff'], params['max_hit'], 0]
         else:
             req_method = "HomologyService.blast_fasta_to_genomes"
-            req_params = [params['sequence'], params['program'], params['genome_ids'], params['search_type'], params['evalue_cutoff'], params['max_hit'], 70]
+            req_params = [params['sequence'], params['program'], params['genome_ids'], params['search_type'], params['evalue_cutoff'], params['max_hit'], 0]
 
         rpc = {"version": "1.1", "params": req_params, "method": req_method, "id": str(random.random())[2:]}
 
