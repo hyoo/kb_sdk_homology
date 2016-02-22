@@ -59,7 +59,7 @@ module HomologySearch {
     string Hsp_query-frame;
     string Hsp_query-from;
     string Hsp_query-to;
-    String Hsp_query-strand;
+    string Hsp_query-strand;
     string Hsp_score;
     string Hsp_gaps;
   } Hsp_details;
