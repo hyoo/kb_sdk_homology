@@ -7,7 +7,7 @@
     "visible": true,
     "categories": ["active"],
     "widgets": {
-        "input": null,
+        "input": "kbaseHomologySearch",
         "output": "kbaseBlastOutput"
     },
     "parameters": [
