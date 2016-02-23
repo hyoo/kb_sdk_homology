@@ -145,7 +145,7 @@ class HomologySearch:
                         },
                         "Iteration_iter-num": "",
                         "Iteration_query-ID": query['query_id'],
-                        "Iteration_query-def": query['query_title'],
+                        "Iteration_query-def": query.get('query_title', ''),
                         "Iteration_query-len": str(query['query_len']),
                         "Iteration_stat": {
                             "Statistics": {
