@@ -111,7 +111,13 @@ class HomologySearch:
         self.log(console, 'sending query')
         self.log(console, pformat(rpc))
 
-        req = requests.post(self.homologyServiceURL, json=rpc)
+        try:
+            req = requests.post(self.homologyServiceURL, json=rpc)
+        except requests.exceptions.Timeout:
+            self.log(console, 'this request is timed out')
+        except requests.exceptions.RequestException as e:
+            self.log(console, e)
+            sys.exit(1)
 
         # Step 3 - wrap results
         jsonQueryReturn = req.json()
