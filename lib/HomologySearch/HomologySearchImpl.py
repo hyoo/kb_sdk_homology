@@ -41,6 +41,7 @@ class HomologySearch:
         for item in list:
             returnVal.append(dict(map(lambda (k, v): (k, str(item.get(v, ''))), name_map.iteritems())))
         return returnVal
+
     def formatHitList(self, list, metadata):
         name_map = {"Hit_accession": "", "Hit_def": "", "Hit_id": "", "Hit_len": "len",
         "Hit_num": "num", "Hit_hsps": ""}
@@ -60,6 +61,12 @@ class HomologySearch:
                     newItem[name] = str(item[val])
             returnVal.append(newItem)
         return returnVal
+
+    def log(self, target, message):
+        if target is not None:
+            target.append(message)
+        print(message)
+        sys.stdout.flush()
     #END_CLASS_HEADER
 
     # config contains contents of config file in a hash or None if it couldn't
@@ -70,12 +77,6 @@ class HomologySearch:
         self.homologyServiceURL = config['homologyservice-url']
         #END_CONSTRUCTOR
         pass
-
-    def log(self, target, message):
-        if target is not None:
-            target.append(message)
-        print(message)
-        sys.stdout.flush()
 
     def run_blast_fasta(self, ctx, params):
         # ctx is the context object
