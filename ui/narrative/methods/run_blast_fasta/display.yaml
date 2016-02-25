@@ -37,6 +37,16 @@ parameters :
             Database
         short-hint : |
             Search against pre-defined database or select genomes
+    genome_ids :
+        ui-name : |
+            Genomes
+        short-hint : |
+            Enter genome ids to search against (e.g. kb|g.0)
+    search_type :
+        ui-name : |
+            Search for
+        short-hint : |
+            Search on genomic sequence or genomic features
     program :
         ui-name : |
             Program
@@ -52,11 +62,6 @@ parameters :
             E value threshold
         short-hint : |
             E value threshold
-    search_type :
-        ui-name : |
-            Search for
-        short-hint : |
-            Search on genomic sequence or genomic features
     output_name :
         ui-name : Output object name
         short-hint : Your desired output object name in the workspace

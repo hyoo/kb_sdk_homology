@@ -99,7 +99,7 @@ class HomologySearch:
             raise ValueError('Parameter max_hit is not set in input arguments')
 
         # Step 2 - query
-        if params['database'] is not "":
+        if params['database'] is not "selected_genomes":
             req_method = "HomologyService.blast_fasta_to_database"
             req_params = [params['sequence'], params['program'], params['database'], params['evalue_cutoff'], params['max_hit'], 0]
         else:
