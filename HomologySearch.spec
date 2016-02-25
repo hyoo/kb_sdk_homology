@@ -118,7 +118,7 @@ module HomologySearch {
   /*
   methods
   */
-  funcdef blast_fasta(HomologySearchInputParams params)
+  funcdef run_blast_fasta(HomologySearchInputParams params)
     returns (BlastOutputRef returnVal)
     authentication required;
 };

@@ -71,12 +71,19 @@ class HomologySearch:
         #END_CONSTRUCTOR
         pass
 
-    def blast_fasta(self, ctx, params):
+    def log(self, target, message):
+        if target is not None:
+            target.append(message)
+        print(message)
+        sys.stdout.flush()
+
+    def run_blast_fasta(self, ctx, params):
         # ctx is the context object
         # return variables are: returnVal
-        #BEGIN blast_fasta
-
-        print('Starting blast_fasta')
+        #BEGIN run_blast_fasta
+        console = []
+        self.log(console, 'Starting run_blast_fasta with params=')
+        self.log(console, pformat(params))
 
         # Step 1 - parse parameters
         if 'sequence' not in params:
@@ -100,7 +107,9 @@ class HomologySearch:
 
         rpc = {"version": "1.1", "params": req_params, "method": req_method, "id": str(random.random())[2:]}
 
-        print('sending query', rpc)
+        self.log(console, 'sending query')
+        self.log(console, pformat(rpc))
+
         req = requests.post(self.homologyServiceURL, json=rpc)
 
         # Step 3 - wrap results
@@ -116,7 +125,10 @@ class HomologySearch:
         # hspsList = report["results"]["search"]["hits"][0]["hsps"]
         # hsps = self.formatHspList(hspsList)
         # print hsps
-        print('hits:', hitsList, metadata)
+        self.log(console, 'hits:')
+        self.log(console, pformat(hitsList))
+        self.log(console, 'metadata:')
+        self.log(console, pformat(metadata))
 
         returnVal = {
             "BlastOutput_db": "",
@@ -181,14 +193,14 @@ class HomologySearch:
                 }]
             }
         )
-        print('saved to workspace')
+        self.log(console, 'saved to workspace')
         returnVal = {'blast_output_name': params["output_name"], 'workspaceName': params['workspace_name']}
-        print(returnVal)
-        #END blast_fasta
+        self.log(console, pformat(returnVal))
+        #END run_blast_fasta
 
         # At some point might do deeper type checking...
         if not isinstance(returnVal, dict):
-            raise ValueError('Method blast_fasta return value ' +
+            raise ValueError('Method run_blast_fasta return value ' +
                              'returnVal is not type dict as required.')
         # return the results
         return [returnVal]

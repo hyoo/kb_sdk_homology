@@ -70,7 +70,7 @@ class HomologySearchTest(unittest.TestCase):
             'output_name': 'blastp_output_to_database'
         }
 
-        result = self.getImpl().blast_fasta(self.getContext(), params)
+        result = self.getImpl().run_blast_fasta(self.getContext(), params)
         ws = result[0]
         blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
         hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
@@ -89,7 +89,7 @@ class HomologySearchTest(unittest.TestCase):
             'output_name': 'blastn_output_to_database_ffn'
         }
 
-        result = self.getImpl().blast_fasta(self.getContext(), params)
+        result = self.getImpl().run_blast_fasta(self.getContext(), params)
         ws = result[0]
         blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
         hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
@@ -108,7 +108,7 @@ class HomologySearchTest(unittest.TestCase):
             'output_name': 'blastn_output_to_database_fna'
         }
 
-        result = self.getImpl().blast_fasta(self.getContext(), params)
+        result = self.getImpl().run_blast_fasta(self.getContext(), params)
         ws = result[0]
         blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
         hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
@@ -127,7 +127,7 @@ class HomologySearchTest(unittest.TestCase):
             'output_name': 'blastx_output_to_database'
         }
 
-        result = self.getImpl().blast_fasta(self.getContext(), params)
+        result = self.getImpl().run_blast_fasta(self.getContext(), params)
         ws = result[0]
         blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
         hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
@@ -158,7 +158,7 @@ class HomologySearchTest(unittest.TestCase):
             'output_name': 'blastp_output_to_genomes_faa'
         }
 
-        result = self.getImpl().blast_fasta(self.getContext(), params)
+        result = self.getImpl().run_blast_fasta(self.getContext(), params)
         ws = result[0]
         blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
         hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
@@ -179,7 +179,7 @@ class HomologySearchTest(unittest.TestCase):
             'output_name': 'blastn_output_to_genomes'
         }
 
-        result = self.getImpl().blast_fasta(self.getContext(), params)
+        result = self.getImpl().run_blast_fasta(self.getContext(), params)
         ws = result[0]
         blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
         hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
@@ -200,7 +200,7 @@ class HomologySearchTest(unittest.TestCase):
             'output_name': 'blastn_output_to_genomes_fna'
         }
 
-        result = self.getImpl().blast_fasta(self.getContext(), params)
+        result = self.getImpl().run_blast_fasta(self.getContext(), params)
         ws = result[0]
         blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
         hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
@@ -221,7 +221,7 @@ class HomologySearchTest(unittest.TestCase):
             'output_name': 'blastx_output_to_genomes_faa'
         }
 
-        result = self.getImpl().blast_fasta(self.getContext(), params)
+        result = self.getImpl().run_blast_fasta(self.getContext(), params)
         ws = result[0]
         blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
         hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
@@ -242,7 +242,7 @@ class HomologySearchTest(unittest.TestCase):
             'output_name': 'tblastn_output_to_genomes_ffn'
         }
 
-        result = self.getImpl().blast_fasta(self.getContext(), params)
+        result = self.getImpl().run_blast_fasta(self.getContext(), params)
         ws = result[0]
         blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
         hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
@@ -263,7 +263,7 @@ class HomologySearchTest(unittest.TestCase):
             'output_name': 'tblastn_output_to_genomes_fna'
         }
 
-        result = self.getImpl().blast_fasta(self.getContext(), params)
+        result = self.getImpl().run_blast_fasta(self.getContext(), params)
         ws = result[0]
         blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
         hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
@@ -284,7 +284,7 @@ class HomologySearchTest(unittest.TestCase):
             'output_name': 'tblastx_output_to_genomes_ffn'
         }
 
-        result = self.getImpl().blast_fasta(self.getContext(), params)
+        result = self.getImpl().run_blast_fasta(self.getContext(), params)
         ws = result[0]
         blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
         hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']
@@ -305,7 +305,7 @@ class HomologySearchTest(unittest.TestCase):
             'output_name': 'tblastx_output_to_genomes_fna'
         }
 
-        result = self.getImpl().blast_fasta(self.getContext(), params)
+        result = self.getImpl().run_blast_fasta(self.getContext(), params)
         ws = result[0]
         blast_outputs = self.getWsClient().get_objects([{'workspace': ws['workspaceName'], 'name': ws['blast_output_name']}])
         hits = blast_outputs[0]['data']['BlastOutput_iterations']['Iteration'][0]['Iteration_hits']['Hit']

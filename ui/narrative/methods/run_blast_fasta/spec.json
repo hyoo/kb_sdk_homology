@@ -141,7 +141,7 @@
         "service-mapping": {
             "url": "",
             "name": "HomologySearch",
-            "method": "blast_fasta",
+            "method": "run_blast_fasta",
             "input_mapping": [
                 {
                     "narrative_system_variable": "workspace",
