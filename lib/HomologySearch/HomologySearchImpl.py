@@ -98,6 +98,14 @@ class HomologySearch:
         if 'max_hit' not in params:
             raise ValueError('Parameter max_hit is not set in input arguments')
 
+        if 'genome_ids' in params:
+            genome_ids = [v for v in params['genome_ids'] if v != '']
+
+            if params['database'] == "selected_genomes" and len(genome_ids) == 0:
+                raise ValueError('Parameter genome_ids is not set in input arguments')
+            else:
+                params['genome_ids'] = genome_ids
+
         # Step 2 - query
         if params['database'] != "selected_genomes":
             req_method = "HomologyService.blast_fasta_to_database"
@@ -138,7 +146,7 @@ class HomologySearch:
         self.log(console, pformat(metadata))
 
         returnVal = {
-            "BlastOutput_db": "",
+            "BlastOutput_db": params['program'],
             "BlastOutput_program": report['program'],
             "BlastOutput_query-ID": query['query_id'],
             "BlastOutput_query-def": query.get('query_title', ''),
