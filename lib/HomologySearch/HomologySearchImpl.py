@@ -99,6 +99,9 @@ class HomologySearch:
             raise ValueError('Parameter max_hit is not set in input arguments')
 
         if 'genome_ids' in params:
+            if params['genome_ids'] is None:
+                raise ValueError('Parameter genome_ids is not set in input arguments')
+
             genome_ids = [v for v in params['genome_ids'] if v != '']
 
             if params['database'] == "selected_genomes" and len(genome_ids) == 0:
